@@ -15,6 +15,7 @@ find_package(catkin REQUIRED COMPONENTS
   dynamic_reconfigure
 )
 SET(CMAKE BUILD TYPE RELEASE)
+find_package (Eigen3 3.3 REQUIRED NO_MODULE)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -155,6 +156,7 @@ add_executable(random_clouds src/random_clouds.cpp src/PointClouds.cpp)
 ## Specify libraries to link a library or executable target against
  target_link_libraries(random_clouds
    ${catkin_LIBRARIES}
+   Eigen3::Eigen
  )
 
 target_link_libraries(pubRectangBox_node

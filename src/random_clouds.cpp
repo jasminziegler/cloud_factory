@@ -79,6 +79,12 @@ void generateCloud(const cloud_factory::RandomCloudsConfig& config, pcl::PointCl
     PointClouds::randomRoughPlane(config.width, config.height, config.resolution, config.roughness, cloud);
     break;
   }
+  case(3):
+  {
+    PointClouds::planeWithGaussian(config.width, config.height, config.resolution, config.gauss_A, Eigen::Vector2f(config.gauss_center_x, 
+    config.gauss_center_y), config.gauss_sigma_x, config.gauss_sigma_y, config.gauss_power_x, config.gauss_power_y, cloud);
+    break;                   
+  }
   default:
   {
     std::cout << __PRETTY_FUNCTION__ << " error. Mode " << config.mode << " not supported " << std::endl;
