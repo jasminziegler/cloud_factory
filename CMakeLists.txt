@@ -16,6 +16,10 @@ find_package(catkin REQUIRED COMPONENTS
 )
 SET(CMAKE BUILD TYPE RELEASE)
 find_package (Eigen3 3.3 REQUIRED NO_MODULE)
+find_package(PCL 1.2 REQUIRED)
+include_directories(${PCL_INCLUDE_DIRS})
+link_directories(${PCL_LIBRARY_DIRS})
+add_definitions(${PCL_DEFINITIONS})
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)

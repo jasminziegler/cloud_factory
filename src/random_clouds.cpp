@@ -25,7 +25,7 @@ int main(int argc, char** argv)
   std::string     topicCloud;
   double          frameRate = 0.0;
   prvNh.param<std::string>("topic_cloud", topicCloud, "cloud");
-  prvNh.param<std::string>("frame_cloud", _frameCloud, "base_link");
+  prvNh.param<std::string>("frame_cloud", _frameCloud, "map");
   prvNh.param<double>("frame_rate", frameRate, 20.0);
   _pubCloud                                                                          = nh.advertise<pcl::PointCloud<pcl::PointXYZ> >(topicCloud, 1);
   ros::Timer                                                                   timer = nh.createTimer(ros::Duration(1.0 / frameRate), callbackTimer);
