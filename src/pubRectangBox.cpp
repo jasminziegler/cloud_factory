@@ -6,6 +6,7 @@
  */
 
 #include <pcl_ros/point_cloud.h>
+#include <pcl_ros/transforms.h>
 #include <ros/ros.h>
 
 ros::Publisher pubArtificialData;
@@ -107,7 +108,29 @@ int main(int argc, char** argv)
       }
     }
 
-    pubArtificialData.publish(cloud);
+    // pubArtificialData.publish(cloud);
+
+    // transform cloud: +90 ZAxis
+    float           rotationAngle  = M_PI / 2;
+    Eigen::Affine3f transformZAxis = Eigen::Affine3f::Identity();
+    transformZAxis.translation() << 0.0, 0.0, 0.0; // 0.0 meters translation
+    transformZAxis.rotate(Eigen::AngleAxisf(rotationAngle, Eigen::Vector3f::UnitZ()));
+
+    pcl::PointCloud<pcl::PointXYZ>::Ptr transformedCloudZ(new pcl::PointCloud<pcl::PointXYZ>());
+    pcl::transformPointCloud(cloud, *transformedCloudZ, transformZAxis);
+    // komischerweise reicht schon die eine Transofrmtion
+
+    // transform cloud: +180 XAxis
+    float           rotationAngle2 = M_PI / 2;
+    Eigen::Affine3f transformXAxis = Eigen::Affine3f::Identity();
+    transformXAxis.translation() << 0.0, 0.0, 0.0;
+    transformXAxis.rotate(Eigen::AngleAxisf(rotationAngle2, Eigen::Vector3f::UnitY()));
+    pcl::PointCloud<pcl::PointXYZ>::Ptr transformedCloudZX(new pcl::PointCloud<pcl::PointXYZ>());
+
+    pcl::transformPointCloud(cloud, *transformedCloudZX, transformXAxis);
+
+    pubArtificialData.publish(transformedCloudZ);
+    // pubArtificialData.publish(transformedCloudZX);
 
     ros::spinOnce();
     loop_rate.sleep();
