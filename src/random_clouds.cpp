@@ -25,7 +25,7 @@ int main(int argc, char** argv)
   std::string     topicCloud;
   double          frameRate = 0.0;
   prvNh.param<std::string>("topic_cloud", topicCloud, "cloud");
-  prvNh.param<std::string>("frame_cloud", _frameCloud, "base_link");
+  prvNh.param<std::string>("frame_cloud", _frameCloud, "map");
   prvNh.param<double>("frame_rate", frameRate, 20.0);
   _pubCloud                                                                          = nh.advertise<pcl::PointCloud<pcl::PointXYZ> >(topicCloud, 1);
   ros::Timer                                                                   timer = nh.createTimer(ros::Duration(1.0 / frameRate), callbackTimer);
@@ -78,6 +78,12 @@ void generateCloud(const cloud_factory::RandomCloudsConfig& config, pcl::PointCl
   {
     PointClouds::randomRoughPlane(config.width, config.height, config.resolution, config.roughness, cloud);
     break;
+  }
+  case(3):
+  {
+    PointClouds::planeWithGaussian(config.width, config.height, config.resolution, config.gauss_A, Eigen::Vector2f(config.gauss_center_x, 
+    config.gauss_center_y), config.gauss_sigma_x, config.gauss_sigma_y, config.gauss_power_x, config.gauss_power_y, cloud);
+    break;                   
   }
   default:
   {
