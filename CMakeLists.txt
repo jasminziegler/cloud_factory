@@ -145,6 +145,8 @@ include_directories(
 # add_executable(${PROJECT_NAME}_node src/cloud_factory_node.cpp)
 
 add_executable(pubRectangBox_node src/pubRectangBox.cpp)
+add_executable(pubThorus_node src/pubThorus.cpp)
+
 
 add_executable(random_clouds src/random_clouds.cpp src/PointClouds.cpp)
 ## Rename C++ executable without prefix
@@ -164,6 +166,10 @@ add_executable(random_clouds src/random_clouds.cpp src/PointClouds.cpp)
  )
 
 target_link_libraries(pubRectangBox_node
+${catkin_LIBRARIES}
+)
+
+target_link_libraries(pubThorus_node
 ${catkin_LIBRARIES}
 )
 
