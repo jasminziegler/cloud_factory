@@ -54,6 +54,33 @@ public:
    */
   static void planeWithGaussian(const float width, const float height, const float resolution, const float A, const Eigen::Vector2f& center,
                                 const float sigmaX, const float sigmaY, const float powerX, const float powerY, pcl::PointCloud<pcl::PointXYZ>& cloud);
+
+  /**
+   * @brief 
+   * 
+   * @param cloud 
+   * @param threshX 
+   * @param threshY 
+   * @param nPoints 
+   * @param zVariance 
+   * @param slopeX 
+   * @param slopeY 
+   */
+  static void randomSlopedPlain(pcl::PointCloud<pcl::PointXYZ>& cloud, const float threshX, const float threshY, const unsigned int nPoints, const float zVariance,
+                         const float slopeX, const float slopeY);
+  /**
+   * @brief 
+   * 
+   * @param cloud 
+   * @param threshX 
+   * @param threshY 
+   * @param resolution 
+   * @param slopeX 
+   * @param slopeY 
+   * @param zVariance 
+   */
+  static void regularSlopedPlain(pcl::PointCloud<pcl::PointXYZ>& cloud, const float threshX, const float threshY, const float resolution, const float slopeX,
+                               const float slopeY, const float zVariance);
 };
 
 #endif
