@@ -24,8 +24,8 @@ int main(int argc, char** argv)
     pcl::PointCloud<pcl::PointXYZ> cloud;
 
     // Sensor data -- CAREFUL now in DEGREE - maybe change to RAD
-    unsigned int raysIncl = 16;
-    double       inclMin  = -15.0;
+    unsigned int raysIncl = 1;
+    // double       inclMin  = -15.0;
     // double       inclRes  = 2.0;
     double azimRes = 0.2;
     // double azimRes = 3.6;

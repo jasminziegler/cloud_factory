@@ -98,6 +98,7 @@ add_definitions(${PCL_DEFINITIONS})
 ## Generate dynamic reconfigure parameters in the 'cfg' folder
 generate_dynamic_reconfigure_options(
 cfg/RandomClouds.cfg
+cfg/PubShape.cfg
   # cfg/DynReconf2.cfg
  )
 
@@ -146,6 +147,7 @@ include_directories(
 
 add_executable(pubRectangBox_node src/pubRectangBox.cpp)
 add_executable(pubThorus_node src/pubThorus.cpp)
+add_executable(pub_shape src/pubShape_main.cpp src/PubShape.cpp)
 
 
 add_executable(random_clouds src/random_clouds.cpp src/PointClouds.cpp)
@@ -170,6 +172,10 @@ ${catkin_LIBRARIES}
 )
 
 target_link_libraries(pubThorus_node
+${catkin_LIBRARIES}
+)
+
+target_link_libraries(pub_shape
 ${catkin_LIBRARIES}
 )
 

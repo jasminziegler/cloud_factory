@@ -41,7 +41,7 @@ int main(int argc, char** argv)
 
     // Sensor data -- CAREFUL now in DEGREE - maybe change to RAD
     // unsigned int raysIncl = 16;
-    unsigned int raysIncl = 3;
+    unsigned int raysIncl = 50;
     double       inclMin  = -15.0;
     double       inclRes  = 2.0;
     // double       azimRes  = 3.6;
