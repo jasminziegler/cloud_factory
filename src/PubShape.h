@@ -16,6 +16,11 @@ public:
   static void pubRectang(const int raysIncl, const float azimRes, const float xWidth, const float yWidth, const float zHeight, float xStart, float yStart,
                          float zStart, pcl::PointCloud<pcl::PointXYZ>& rectangleCloud);
 
+  static void pubPCDFile(pcl::PointCloud<pcl::PointXYZ>& pcdFileCloud);
+
+  static void pubCrazyShape(const int raysIncl, const float inclMin, const float inclRes, const float azimRes, const float azimMin,
+                            pcl::PointCloud<pcl::PointXYZ>& crazyShapeCloud);
+
 private:
   /**
    * @function rad
