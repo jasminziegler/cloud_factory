@@ -25,9 +25,9 @@ unsigned int ctrAzim = 0;
 unsigned int ctrIncl = 0;
 
   double r = absBase;
-  for(double azim = azimMin; azim < azimMax; azim += azimRes, r += absDiff)
+  for(double azim = azimMin; azim < azimMax + azimRes; azim += azimRes, r += absDiff)
   {
-    for(double incl = inclMin; incl < inclMax; incl += inclRes)
+    for(double incl = inclMin; incl < inclMax + inclRes; incl += inclRes)
     {
       double theta = 0.0;
       if(incl < 0.0)
