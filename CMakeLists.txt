@@ -151,6 +151,7 @@ add_executable(pubRectangBox_node src/pubRectangBox.cpp)
 add_executable(pubThorus_node src/pubThorus.cpp)
 add_executable(pub_shape src/pubShape_main.cpp src/PubShape.cpp)
 add_executable(sloped_planes src/sloped_planes.cpp src/PointClouds.cpp)
+add_executable(the_azimuth src/the_azimuth.cpp)
 
 
 add_executable(random_clouds src/random_clouds.cpp src/PointClouds.cpp)
@@ -184,6 +185,10 @@ ${catkin_LIBRARIES}
 target_link_libraries(sloped_planes
 ${catkin_LIBRARIES}
 Eigen3::Eigen
+)
+
+target_link_libraries(the_azimuth
+${catkin_LIBRARIES}
 )
 
 #############
