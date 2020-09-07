@@ -35,14 +35,15 @@ void PubShape::pubThorus(const int raysIncl, const float inclMin, const float in
   thorusCloud.header.frame_id = "map";
 
   double inclCorr = 0.0;
-  for(unsigned int i = 0; i < raysIncl; i++)
+  // turn around azim and incl
+  for(unsigned int i = 0; i < raysAzim; i++)
   {
-    for(unsigned int j = 0; j <= raysAzim; j++)
+    for(unsigned int j = 0; j < raysIncl; j++)
     {
-      idx = i * raysAzim + j;
+      idx = i * raysIncl + j;
       std::cout << "idx = " << idx << std::endl;
-      double currentInclination = deg2rad(inclMin + i * inclRes);
-      double currentAzim        = deg2rad(azimMin + j * azimRes);
+      double currentInclination = deg2rad(inclMin + j * inclRes);
+      double currentAzim        = deg2rad(azimMin + i * azimRes);
       std::cout << "currentInclination = " << rad2deg(currentInclination) << " , currentAzim = " << rad2deg(currentAzim) << std::endl;
       if(currentInclination <= 0) // DAS GLEICH HAB ICH ERGÄNZT für wenn =0
       {
@@ -59,6 +60,32 @@ void PubShape::pubThorus(const int raysIncl, const float inclMin, const float in
       thorusCloud.points[idx].z = 0.5 * sin(inclCorr) * sin(currentAzim);
     }
   }
+
+  // Schleifen falschrum hier
+  // for(unsigned int i = 0; i < raysIncl; i++)
+  // {
+  //   for(unsigned int j = 0; j <= raysAzim; j++)
+  //   {
+  //     idx = i * raysAzim + j;
+  //     std::cout << "idx = " << idx << std::endl;
+  //     double currentInclination = deg2rad(inclMin + i * inclRes);
+  //     double currentAzim        = deg2rad(azimMin + j * azimRes);
+  //     std::cout << "currentInclination = " << rad2deg(currentInclination) << " , currentAzim = " << rad2deg(currentAzim) << std::endl;
+  //     if(currentInclination <= 0) // DAS GLEICH HAB ICH ERGÄNZT für wenn =0
+  //     {
+  //       inclCorr = deg2rad(90.0) + (-1.0 * currentInclination);
+  //     }
+  //     else
+  //     {
+  //       inclCorr = deg2rad(90.0) - currentInclination;
+  //     }
+
+  //     std::cout << "inclCorr = " << rad2deg(inclCorr) << std::endl;
+  //     thorusCloud.points[idx].x = 0.5 * sin(inclCorr) * cos(currentAzim);
+  //     thorusCloud.points[idx].y = 0.5 * cos(inclCorr);
+  //     thorusCloud.points[idx].z = 0.5 * sin(inclCorr) * sin(currentAzim);
+  //   }
+  // }
 }
 
 void PubShape::pubRectang(const int raysIncl, const float azimRes, const float xWidth, const float yWidth, const float zHeight, float xStart, float yStart,
@@ -232,14 +259,15 @@ void PubShape::pubCrazyShape(const int raysIncl, const float inclMin, const floa
   crazyShapeCloud.header.frame_id = "map";
 
   double inclCorr = 0.0;
-  for(unsigned int i = 0; i < raysIncl; i++)
+  for(unsigned int i = 0; i <= raysAzim; i++)
   {
-    for(unsigned int j = 0; j <= raysAzim; j++)
+    for(unsigned int j = 0; j < raysIncl; j++)
     {
-      idx = i * raysAzim + j;
+      idx = i * raysIncl + j;
       std::cout << "idx = " << idx << std::endl;
-      double currentInclination = deg2rad(inclMin + i * inclRes);
-      double currentAzim        = deg2rad(azimMin + j * azimRes);
+      double currentAzim        = deg2rad(azimMin + i * azimRes);
+      double currentInclination = deg2rad(inclMin + j * inclRes);
+
       std::cout << "currentInclination = " << rad2deg(currentInclination) << " , currentAzim = " << rad2deg(currentAzim) << std::endl;
       if(currentInclination <= 0) // DAS GLEICH HAB ICH ERGÄNZT für wenn =0
       {
@@ -251,7 +279,7 @@ void PubShape::pubCrazyShape(const int raysIncl, const float inclMin, const floa
       }
       std::cout << "inclCorr = " << rad2deg(inclCorr) << std::endl;
 
-      if(j <= 900)
+      if(i <= (raysAzim / 2)) // Hälfte des Thorus mit kleinerem Radius
       {
         crazyShapeCloud.points[idx].x = 1.0 * sin(inclCorr) * cos(currentAzim);
         crazyShapeCloud.points[idx].y = 1.0 * cos(inclCorr);
@@ -266,3 +294,51 @@ void PubShape::pubCrazyShape(const int raysIncl, const float inclMin, const floa
     }
   }
 }
+// azim und incl for loops umdrehen
+// {
+//   unsigned int raysAzim = round(static_cast<unsigned>(360.0 / azimRes)) + 1;
+//   std::cout << "raysAzim = " << raysAzim << std::endl;
+//   unsigned int idx = 0;
+
+//   crazyShapeCloud.width  = raysAzim;
+//   crazyShapeCloud.height = raysIncl;
+//   std::cout << "crazyShapeCloud.width = " << crazyShapeCloud.width << " , crazyShapeCloud.height = " << crazyShapeCloud.height << std::endl;
+//   crazyShapeCloud.is_dense = false;
+//   crazyShapeCloud.points.resize(crazyShapeCloud.width * crazyShapeCloud.height);
+//   crazyShapeCloud.header.frame_id = "map";
+
+//   double inclCorr = 0.0;
+//   for(unsigned int i = 0; i < raysIncl; i++)
+//   {
+//     for(unsigned int j = 0; j <= raysAzim; j++)
+//     {
+//       idx = i * raysAzim + j;
+//       std::cout << "idx = " << idx << std::endl;
+//       double currentInclination = deg2rad(inclMin + i * inclRes);
+//       double currentAzim        = deg2rad(azimMin + j * azimRes);
+//       std::cout << "currentInclination = " << rad2deg(currentInclination) << " , currentAzim = " << rad2deg(currentAzim) << std::endl;
+//       if(currentInclination <= 0) // DAS GLEICH HAB ICH ERGÄNZT für wenn =0
+//       {
+//         inclCorr = deg2rad(90.0) + (-1.0 * currentInclination);
+//       }
+//       else
+//       {
+//         inclCorr = deg2rad(90.0) - currentInclination;
+//       }
+//       std::cout << "inclCorr = " << rad2deg(inclCorr) << std::endl;
+
+//       if(j <= 900)
+//       {
+//         crazyShapeCloud.points[idx].x = 1.0 * sin(inclCorr) * cos(currentAzim);
+//         crazyShapeCloud.points[idx].y = 1.0 * cos(inclCorr);
+//         crazyShapeCloud.points[idx].z = 1.0 * sin(inclCorr) * sin(currentAzim);
+//       }
+//       else
+//       {
+//         crazyShapeCloud.points[idx].x = 0.5 * sin(inclCorr) * cos(currentAzim);
+//         crazyShapeCloud.points[idx].y = 0.5 * cos(inclCorr);
+//         crazyShapeCloud.points[idx].z = 0.5 * sin(inclCorr) * sin(currentAzim);
+//       }
+//     }
+//   }
+// }

@@ -102,7 +102,11 @@ cfg/PubShape.cfg
   # cfg/DynReconf2.cfg
   cfg/RandomClouds.cfg
   cfg/Planes.cfg
+<<<<<<< HEAD
   cfg/Steps.cfg
+=======
+  cfg/theAzimuth.cfg
+>>>>>>> a473dd9d6189711054c521c2a851cd6a993a772a
  )
 
 ###################################
