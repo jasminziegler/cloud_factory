@@ -35,6 +35,7 @@ void PubShape::pubThorus(const int raysIncl, const float inclMin, const float in
   thorusCloud.header.frame_id = "map";
 
   double inclCorr = 0.0;
+  double r        = 0.5;
   // turn around azim and incl
   for(unsigned int i = 0; i < raysAzim; i++)
   {
@@ -55,39 +56,16 @@ void PubShape::pubThorus(const int raysIncl, const float inclMin, const float in
       }
 
       std::cout << "inclCorr = " << rad2deg(inclCorr) << std::endl;
-      thorusCloud.points[idx].x = 0.5 * sin(inclCorr) * cos(currentAzim);
-      thorusCloud.points[idx].y = 0.5 * cos(inclCorr);
-      thorusCloud.points[idx].z = 0.5 * sin(inclCorr) * sin(currentAzim);
+      thorusCloud.points[idx].x = r * sin(inclCorr) * cos(currentAzim);
+      thorusCloud.points[idx].y = r * cos(inclCorr);
+      thorusCloud.points[idx].z = r * sin(inclCorr) * sin(currentAzim);
+      r += 0.01;
     }
+    r = 0.5;
   }
-
-  // Schleifen falschrum hier
-  // for(unsigned int i = 0; i < raysIncl; i++)
-  // {
-  //   for(unsigned int j = 0; j <= raysAzim; j++)
-  //   {
-  //     idx = i * raysAzim + j;
-  //     std::cout << "idx = " << idx << std::endl;
-  //     double currentInclination = deg2rad(inclMin + i * inclRes);
-  //     double currentAzim        = deg2rad(azimMin + j * azimRes);
-  //     std::cout << "currentInclination = " << rad2deg(currentInclination) << " , currentAzim = " << rad2deg(currentAzim) << std::endl;
-  //     if(currentInclination <= 0) // DAS GLEICH HAB ICH ERGÄNZT für wenn =0
-  //     {
-  //       inclCorr = deg2rad(90.0) + (-1.0 * currentInclination);
-  //     }
-  //     else
-  //     {
-  //       inclCorr = deg2rad(90.0) - currentInclination;
-  //     }
-
-  //     std::cout << "inclCorr = " << rad2deg(inclCorr) << std::endl;
-  //     thorusCloud.points[idx].x = 0.5 * sin(inclCorr) * cos(currentAzim);
-  //     thorusCloud.points[idx].y = 0.5 * cos(inclCorr);
-  //     thorusCloud.points[idx].z = 0.5 * sin(inclCorr) * sin(currentAzim);
-  //   }
-  // }
 }
 
+// das hier macht nur scheisse, nicht benutzen
 void PubShape::pubRectang(const int raysIncl, const float azimRes, const float xWidth, const float yWidth, const float zHeight, float xStart, float yStart,
                           float zStart, pcl::PointCloud<pcl::PointXYZ>& rectangleCloud)
 {
@@ -111,15 +89,6 @@ void PubShape::pubRectang(const int raysIncl, const float azimRes, const float x
   double lastY  = 0.0;
   double lastX2 = 0.0;
   double lastY2 = 0.0;
-
-  // TO DO: dyn reconf with these cuties
-  // added to DYNRECONF
-  //   double xWidth  = 0.01;
-  //   double yWidth  = 0.015;
-  //   double zHeight = 0.1;
-  //   double xStart  = 0.0;
-  //   double yStart  = 2.0;
-  //   double zStart  = 0.0;
 
   for(unsigned int i = 0; i < raysIncl; i++)
   {
@@ -294,51 +263,3 @@ void PubShape::pubCrazyShape(const int raysIncl, const float inclMin, const floa
     }
   }
 }
-// azim und incl for loops umdrehen
-// {
-//   unsigned int raysAzim = round(static_cast<unsigned>(360.0 / azimRes)) + 1;
-//   std::cout << "raysAzim = " << raysAzim << std::endl;
-//   unsigned int idx = 0;
-
-//   crazyShapeCloud.width  = raysAzim;
-//   crazyShapeCloud.height = raysIncl;
-//   std::cout << "crazyShapeCloud.width = " << crazyShapeCloud.width << " , crazyShapeCloud.height = " << crazyShapeCloud.height << std::endl;
-//   crazyShapeCloud.is_dense = false;
-//   crazyShapeCloud.points.resize(crazyShapeCloud.width * crazyShapeCloud.height);
-//   crazyShapeCloud.header.frame_id = "map";
-
-//   double inclCorr = 0.0;
-//   for(unsigned int i = 0; i < raysIncl; i++)
-//   {
-//     for(unsigned int j = 0; j <= raysAzim; j++)
-//     {
-//       idx = i * raysAzim + j;
-//       std::cout << "idx = " << idx << std::endl;
-//       double currentInclination = deg2rad(inclMin + i * inclRes);
-//       double currentAzim        = deg2rad(azimMin + j * azimRes);
-//       std::cout << "currentInclination = " << rad2deg(currentInclination) << " , currentAzim = " << rad2deg(currentAzim) << std::endl;
-//       if(currentInclination <= 0) // DAS GLEICH HAB ICH ERGÄNZT für wenn =0
-//       {
-//         inclCorr = deg2rad(90.0) + (-1.0 * currentInclination);
-//       }
-//       else
-//       {
-//         inclCorr = deg2rad(90.0) - currentInclination;
-//       }
-//       std::cout << "inclCorr = " << rad2deg(inclCorr) << std::endl;
-
-//       if(j <= 900)
-//       {
-//         crazyShapeCloud.points[idx].x = 1.0 * sin(inclCorr) * cos(currentAzim);
-//         crazyShapeCloud.points[idx].y = 1.0 * cos(inclCorr);
-//         crazyShapeCloud.points[idx].z = 1.0 * sin(inclCorr) * sin(currentAzim);
-//       }
-//       else
-//       {
-//         crazyShapeCloud.points[idx].x = 0.5 * sin(inclCorr) * cos(currentAzim);
-//         crazyShapeCloud.points[idx].y = 0.5 * cos(inclCorr);
-//         crazyShapeCloud.points[idx].z = 0.5 * sin(inclCorr) * sin(currentAzim);
-//       }
-//     }
-//   }
-// }
