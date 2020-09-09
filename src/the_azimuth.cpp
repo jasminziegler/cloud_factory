@@ -77,5 +77,5 @@ void callBackDynamicReconfigure(cloud_factory::theAzimuthConfig& config, const u
     }
     std::cout << "countIncl = " << countIncl << std::endl;
   }
-  std::cout << __PRETTY_FUNCTION__ << "cnt = " << cnt << std::endl; // size = 28800,. cnt = 28816 / cnt = 27015
+  std::cout << __PRETTY_FUNCTION__ << "cnt = " << cnt << std::endl; // size = 28800,. cnt = 27015
 }
