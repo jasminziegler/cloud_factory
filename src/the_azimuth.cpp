@@ -52,13 +52,15 @@ void callBackDynamicReconfigure(cloud_factory::theAzimuthConfig& config, const u
   double absBase = _config.absBase;
   double absDiff = _config.absDiff;
 
-  unsigned int ctrAzim = 0;
-  unsigned int ctrIncl = 0;
+  unsigned int ctrAzim   = 0;
+  unsigned int ctrIncl   = 0;
+  unsigned int cnt       = 0;
+  unsigned int countIncl = 0;
 
   double r = absBase;
-  for(double azim = azimMin; azim < azimMax + 2.0 * azimRes; azim += azimRes, r += absDiff)
+  for(double azim = azimMin; azim < azimMax; azim += azimRes, r += absDiff)
   {
-    for(double incl = inclMin; incl < inclMax + inclRes; incl += inclRes)
+    for(double incl = inclMin; incl < inclMax; incl += inclRes, countIncl++)
     {
       double theta = 0.0;
       if(incl < 0.0)
@@ -67,9 +69,13 @@ void callBackDynamicReconfigure(cloud_factory::theAzimuthConfig& config, const u
       {
         theta = M_PI / 2.0 - incl;
       }
-
       pcl::PointXYZ point(r * std::sin(theta) * std::cos(azim), r * std::sin(theta) * std::sin(azim), std::cos(theta));
       _cloud.push_back(point);
+
+      r += absDiff;
+      cnt++;
     }
+    std::cout << "countIncl = " << countIncl << std::endl;
   }
+  std::cout << __PRETTY_FUNCTION__ << "cnt = " << cnt << std::endl; // size = 28800,. cnt = 28816 / cnt = 27015
 }
