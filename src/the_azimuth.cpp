@@ -70,13 +70,14 @@ void callBackDynamicReconfigure(cloud_factory::theAzimuthConfig& config, const u
       {
         theta = M_PI / 2.0 - incl;
       }
-      pcl::PointXYZ point(r * std::sin(theta) * std::cos(azim), r * std::sin(theta) * std::sin(azim), std::cos(theta));
+      // pcl::PointXYZ point(r * std::sin(theta) * std::cos(azim + M_PI), r * std::sin(theta) * std::sin(azim + M_PI), std::cos(theta));
+      pcl::PointXYZ point(r * std::sin(theta) * std::cos(azim), r * std::sin(theta) * std::sin(azim), r * std::cos(theta));
       _cloud.push_back(point);
 
       r += absDiff;
       cnt++;
     }
-    std::cout << "countIncl = " << countIncl << std::endl;
+    // std::cout << "countIncl = " << countIncl << std::endl;
     r += absDiff;
   }
   std::cout << __PRETTY_FUNCTION__ << "cnt = " << cnt << std::endl; // size = 28800,. cnt = 27015
