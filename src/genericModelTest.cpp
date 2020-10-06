@@ -60,9 +60,37 @@ int main(int argc, char** argv)
   unsigned int countAzim = 0;
   unsigned int countIncl = 0;
 
+  //   double inclSteps = abs(_inclMin - _inclMax) / _raysIncl;
+
+  //   for(double azim = _azimMin; azim < _azimMax - _azimRes; azim += _azimRes, countAzim++)
+  //   {
+  //     for(double incl = _inclMin; incl < _inclMax + _inclRes; incl += inclSteps, countIncl++)
+  //     {
+  //       double theta = 0.0;
+  //       if(incl < 0.0)
+  //         theta = M_PI / 2.0 + std::abs(incl);
+  //       else
+  //       {
+  //         theta = M_PI / 2.0 - incl;
+  //       }
+
+  //       pcl::PointXYZ point(_radiusCloud * std::sin(theta) * std::cos(azim), _radiusCloud * std::sin(theta) * std::sin(azim), _radiusCloud *
+  //       std::cos(theta));
+
+  //       _cloud.push_back(point);
+
+  //       _radiusCloud += _radiusIncrement;
+  //       cnt++;
+  //     }
+  //     _radiusCloud += _radiusIncrement;
+  //   }
+
+  // worked for VLP16, HDL32, OUSTER
   for(double azim = _azimMin; azim < _azimMax - _azimRes; azim += _azimRes, countAzim++)
   {
-    for(double incl = _inclMin; incl < _inclMax + _inclRes; incl += _inclRes, countIncl++)
+    for(double incl = _inclMin; incl < _inclMax + _inclRes; incl += _inclRes, countIncl++) //works for VLP16, HDL32, OUSTER
+        // for(double incl = _inclMin; incl <= _inclMax-_inclRes; incl += _inclRes, countIncl++) //works for tilt4d
+
     {
       double theta = 0.0;
       if(incl < 0.0)
@@ -83,7 +111,7 @@ int main(int argc, char** argv)
   }
   std::cout << __PRETTY_FUNCTION__ << "cnt = " << cnt << std::endl;
   std::cout << __PRETTY_FUNCTION__ << "countAzim = " << countAzim << std::endl;
-  std::cout << __PRETTY_FUNCTION__ << "countIncl = " << countIncl << std::endl;
+  std::cout << __PRETTY_FUNCTION__ << "countIncl = " << countIncl/countAzim << std::endl;
 
   _pubCloud              = _nh.advertise<pcl::PointCloud<pcl::PointXYZ> >(_laserDataTopic, 1);
   _cloud.header.frame_id = _tfLaserDataFrameID;
