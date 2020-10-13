@@ -86,11 +86,15 @@ int main(int argc, char** argv)
   //   }
 
   // worked for VLP16, HDL32, OUSTER
-  for(double azim = _azimMin; azim < _azimMax - _azimRes; azim += _azimRes, countAzim++)
-  {
-    for(double incl = _inclMin; incl < _inclMax + _inclRes; incl += _inclRes, countIncl++) //works for VLP16, HDL32, OUSTER
+  // for(double azim = _azimMin; azim < _azimMax - _azimRes; azim += _azimRes, countAzim++)
+  // {
+  //   for(double incl = _inclMin; incl < _inclMax + _inclRes; incl += _inclRes, countIncl++) //works for VLP16, HDL32, OUSTER
         // for(double incl = _inclMin; incl <= _inclMax-_inclRes; incl += _inclRes, countIncl++) //works for tilt4d
 
+//for tilt3d
+for(double azim = _azimMin; azim < _azimMax; azim += _azimRes, countAzim++)
+  {
+    for(double incl = _inclMin; incl < _inclMax; incl += _inclRes, countIncl++) 
     {
       double theta = 0.0;
       if(incl < 0.0)
