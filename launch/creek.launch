@@ -2,6 +2,7 @@
 <launch>
     <node pkg = "cloud_factory" type = "random_clouds" name = "random_clouds">
         <param name = "width" type = "double" value = "9.999"/>
+        <param name = "topic_cloud" type = "string" value = "transformed_cloud"/>
         <param name = "height" type = "double" value = "9.999"/>
         <param name = "resolution" type = "double" value = "0.1"/>
         <param name = "mode" type = "int" value = "3"/>
