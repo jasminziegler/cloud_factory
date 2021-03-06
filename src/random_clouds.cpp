@@ -82,7 +82,7 @@ void generateCloud(const cloud_factory::RandomCloudsConfig& config, pcl::PointCl
   case(3):
   {
     PointClouds::planeWithGaussian(config.width, config.height, config.resolution, config.gauss_A, Eigen::Vector2f(config.gauss_center_x, 
-    config.gauss_center_y), config.gauss_sigma_x, config.gauss_sigma_y, config.gauss_power_x, config.gauss_power_y, cloud);
+    config.gauss_center_y), config.gauss_sigma_x, config.gauss_sigma_y, config.gauss_power_x, config.gauss_power_y, config.roughness, cloud);
     break;                   
   }
   default:

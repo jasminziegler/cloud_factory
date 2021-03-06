@@ -53,7 +53,7 @@ public:
    * @param cloud pcl point cloud to store the points in
    */
   static void planeWithGaussian(const float width, const float height, const float resolution, const float A, const Eigen::Vector2f& center,
-                                const float sigmaX, const float sigmaY, const float powerX, const float powerY, pcl::PointCloud<pcl::PointXYZ>& cloud);
+                                const float sigmaX, const float sigmaY, const float powerX, const float powerY, const float threshRoughness, pcl::PointCloud<pcl::PointXYZ>& cloud);
 
   /**
    * @brief 
