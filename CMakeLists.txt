@@ -103,6 +103,7 @@ cfg/PubShape.cfg
   cfg/RandomClouds.cfg
   cfg/Planes.cfg
   cfg/Steps.cfg
+  cfg/Steps4.cfg
   cfg/theAzimuth.cfg
  )
 
@@ -155,6 +156,7 @@ add_executable(pub_shape src/pubShape_main.cpp src/PubShape.cpp)
 add_executable(sloped_planes src/sloped_planes.cpp src/PointClouds.cpp)
 add_executable(the_azimuth src/the_azimuth.cpp)
 add_executable(steps src/steps.cpp)
+add_executable(steps4 src/steps4.cpp)
 add_executable(generic_model_data src/genericModelTest.cpp)
 
 
@@ -196,6 +198,10 @@ ${catkin_LIBRARIES}
 )
 
 target_link_libraries(steps
+${catkin_LIBRARIES}
+)
+
+target_link_libraries(steps4
 ${catkin_LIBRARIES}
 )
 
